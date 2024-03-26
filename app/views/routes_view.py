@@ -1,4 +1,4 @@
-from flask import request, send_file, render_template
+from flask import request, send_file, render_template, jsonify
 
 from app import app
 from app.controllers import qr_controller
@@ -15,6 +15,11 @@ def generate_qr(parametro_url=None):
         # Se a solicitação for GET, use o parâmetro_url
         data = parametro_url
 
+    max_lenght = 20
+    # Verifica tamanho máximo do texto a ser gerado
+    if len(data) > max_lenght:
+        error = {"erro": "Texto permitido até 20 caracteres."}
+        return jsonify(error), 400
 
     if data:
         qr_img_path = qr_controller.generate_qr(data)
