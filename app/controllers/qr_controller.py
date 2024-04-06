@@ -18,4 +18,3 @@ class QRController:
         qr_img.save(temp_file_path)
 
         return temp_file_path
-
